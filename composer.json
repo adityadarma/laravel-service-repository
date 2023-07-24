@@ -1,0 +1,33 @@
+{
+    "name": "adityadarma/laravel-service-repository",
+    "description": "Create pattern service and repository with easy",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Aditya Darma",
+            "email": "adhit.boys1@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "AdityaDarma\\LaravelServiceRepository\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "AdityaDarma\\LaravelServiceRepository\\LaravelServiceRepositoryServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "preferred-install": "dist",
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "dev"
+}
