@@ -2,12 +2,11 @@
 
 namespace {{ namespace }};
 
-use AdityaDarma\LaravelServiceRepository\Services\BaseService;
+use App\Services\BaseService;
 
 class {{ class }} extends BaseService
 {
-    public function __construct()
-    {
+    public function __construct(
 
-    }
+    ){}
 }

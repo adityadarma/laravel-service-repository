@@ -18,7 +18,7 @@ class RepositoryCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $description = 'Create n new repository class';
+    protected $description = 'Create a new repository class';
 
     /**
      * Class type that is being created.

@@ -2,68 +2,118 @@
 
 namespace App\Services;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\QueryException;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\JsonResponse;
 
 class BaseService
 {
-    private $data = null;
-	private $message = null;
+    private mixed $data = null;
+	private ?string $message = null;
 	private int $code = 200;
-	private $error = null;
+	private mixed $error = null;
 
-	public function setData($data)
+    /**
+     * Set data on service
+     *
+     * @param $data
+     * @return static
+     */
+	public function setData($data): static
 	{
 		$this->data = $data;
 
 		return $this;
 	}
 
-	public function getData()
+    /**
+     * Get data on service
+     *
+     * @return mixed
+     */
+	public function getData(): mixed
 	{
 		return $this->data;
 	}
 
-	public function setMessage($message)
+    /**
+     * Set message on service
+     *
+     * @param $message
+     * @return static
+     */
+	public function setMessage(string $message): static
 	{
 		$this->message = $message;
 
 		return $this;
 	}
 
-	public function getMessage()
+    /**
+     * Get message on service
+     *
+     * @return string|null
+     */
+	public function getMessage(): ?string
 	{
 		return $this->message;
 	}
 
-	public function setCode($code)
+    /**
+     * Set code on service
+     *
+     * @param integer $code
+     * @return static
+     */
+	public function setCode(int $code): static
 	{
 		$this->code = $code;
 
 		return $this;
 	}
 
-	public function getCode()
+    /**
+     * Get code on service
+     *
+     * @return integer
+     */
+	public function getCode(): int
 	{
 		return $this->code;
 	}
 
-	public function setError($error)
+    /**
+     * Set error on service
+     *
+     * @param $error
+     * @return static
+     */
+	public function setError($error): static
 	{
 		$this->error = $error;
 
 		return $this;
 	}
 
-	public function getError()
+    /**
+     * Get error on service
+     *
+     * @return mixed
+     */
+	public function getError(): mixed
 	{
 		return $this->error;
 	}
 
-    public function toJson()
+    /**
+     * Convert to json data
+     *
+     * @return JsonResponse
+     */
+    public function toJson(): JsonResponse
     {
         return response()->json(
             array_filter([
@@ -73,7 +123,13 @@ class BaseService
             ]), $this->code);
     }
 
-    public function toResource($resource)
+    /**
+     * Convert to json data with resource
+     *
+     * @param $resource
+     * @return JsonResponse
+     */
+    public function toResource($resource): JsonResponse
     {
         if($this->data instanceof Collection) {
             $this->data =  $resource::collection($this->data);
@@ -84,7 +140,14 @@ class BaseService
         return $this->toJson();
     }
 
-    public function exceptionResponse(Exception $exception, $message = 'Terjadi suatu kesalahan!')
+    /**
+     * Hadle exception error
+     *
+     * @param Exception $exception
+     * @param string $message
+     * @return BaseService
+     */
+    public function exceptionResponse(Exception $exception, $message = 'Terjadi suatu kesalahan!'): BaseService
     {
         // Query Exception
         if ($exception instanceof QueryException) {
@@ -104,13 +167,12 @@ class BaseService
 
         // Debuging
         if (config('app.debug')) {
-            $message = (object) [
-                'file' => $exception->getFile(),
-                'line' => $exception->getLine(),
-                'trace' => $exception->getTrace()
-            ];
             return $this->setMessage($exception->getMessage())
-                        ->setError($message)
+                        ->setError([
+                            'file' => $exception->getFile(),
+                            'line' => $exception->getLine(),
+                            'trace' => $exception->getTrace()
+                        ])
                         ->setCode($exception->getCode());
         }
 
