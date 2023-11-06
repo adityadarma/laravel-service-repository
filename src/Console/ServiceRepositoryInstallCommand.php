@@ -34,9 +34,9 @@ class ServiceRepositoryInstallCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         // Service
         if (File::exists(app_path("Services/BaseService.php"))) {
@@ -68,7 +68,12 @@ class ServiceRepositoryInstallCommand extends Command
         }
     }
 
-    private function publishService()
+    /**
+     * Publish base service
+     *
+     * @return void
+     */
+    private function publishService(): void
     {
         if(!File::isDirectory(app_path("Services"))){
             File::makeDirectory(app_path("Services"));
@@ -76,7 +81,12 @@ class ServiceRepositoryInstallCommand extends Command
         File::copy(__DIR__ . "/../Services/BaseService.php", app_path("Services/BaseService.php"));
     }
 
-    private function publishTrait()
+    /**
+     * Publish trait validate request
+     *
+     * @return void
+     */
+    private function publishTrait(): void
     {
         if(!File::isDirectory(app_path("Traits"))){
             File::makeDirectory(app_path("Traits"));

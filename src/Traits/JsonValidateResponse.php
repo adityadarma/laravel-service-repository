@@ -4,8 +4,8 @@ namespace App\Traits;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response;
 
 trait JsonValidateResponse
 {
@@ -17,15 +17,15 @@ trait JsonValidateResponse
      *
      * @throws ValidationException
      */
-    public function failedValidation(Validator $validator)
+    public function failedValidation(Validator $validator): void
     {
-        $errors = (new ValidationException($validator))->errors();
+        $errors = $validator->errors();
 
         throw new HttpResponseException(
             response()->json([
                 'message' => 'Unprocessable Content',
                 'errors' => $errors
-            ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY)
+            ], Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
 }

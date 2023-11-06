@@ -32,8 +32,10 @@ class ServiceCommand extends GeneratorCommand
 
     /**
      * Specify your Stub's location.
+     *
+     * @return string
      */
-    protected function getStub()
+    protected function getStub(): string
     {
         return __DIR__.'/../Stubs/service.stub';
     }
@@ -41,8 +43,11 @@ class ServiceCommand extends GeneratorCommand
     /**
      * The root location where your new file should
      * be written to.
+     *
+     * @param $rootNamespace
+     * @return string
      */
-    protected function getDefaultNamespace($rootNamespace)
+    protected function getDefaultNamespace($rootNamespace): string
     {
         return $rootNamespace . '\Services';
     }
