@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace AdityaDarma\LaravelServiceRepository\Services;
 
 use AdityaDarma\LaravelServiceRepository\Exception\CustomException;
 use Exception;
@@ -148,8 +148,12 @@ class BaseService
      * @param string $message
      * @return BaseService
      */
-    public function exceptionResponse(Exception $exception, string $message = 'Terjadi suatu kesalahan!'): BaseService
+    public function exceptionResponse(Exception $exception, string $message = 'Terjadi suatu kesalahan!'): static
     {
+        // Default
+        $this->setMessage($message)
+            ->setCode($exception->getCode());
+
         // Query Exception
         if ($exception instanceof QueryException) {
             if ($exception->errorInfo[1] == 1451) {
@@ -168,9 +172,10 @@ class BaseService
             abort(404);
         }
 
-        // Model Not Found
+        // Custom exception
         if ($exception instanceof CustomException) {
-            $message = $exception->getMessage();
+            $this->setMessage($exception->getMessage())
+                ->setCode($exception->getCode());
         }
 
         // Debuging
@@ -183,10 +188,6 @@ class BaseService
                 ])
                 ->setCode($exception->getCode());
         }
-
-        // Default
-        $this->setMessage($message)
-            ->setCode($exception->getCode());
 
         return $this;
     }

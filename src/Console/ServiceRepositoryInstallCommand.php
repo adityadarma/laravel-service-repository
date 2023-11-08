@@ -51,21 +51,6 @@ class ServiceRepositoryInstallCommand extends Command
             $this->publishService();
             $this->info("base service published");
         }
-
-
-        // Trait
-        if (File::exists(app_path("Traits/JsonValidateResponse.php"))) {
-            $confirm = $this->confirm("Traits JsonValidateResponse.php file already exist. Do you want to overwrite?");
-            if ($confirm) {
-                $this->publishTrait();
-                $this->info("traits overwrite finished");
-            } else {
-                $this->info("skipped traits publish");
-            }
-        } else {
-            $this->publishTrait();
-            $this->info("traits published");
-        }
     }
 
     /**
@@ -79,18 +64,5 @@ class ServiceRepositoryInstallCommand extends Command
             File::makeDirectory(app_path("Services"));
         }
         File::copy(__DIR__ . "/../Services/BaseService.php", app_path("Services/BaseService.php"));
-    }
-
-    /**
-     * Publish trait validate request
-     *
-     * @return void
-     */
-    private function publishTrait(): void
-    {
-        if(!File::isDirectory(app_path("Traits"))){
-            File::makeDirectory(app_path("Traits"));
-        }
-        File::copy(__DIR__ . "/../Traits/JsonValidateResponse.php", app_path("Traits/JsonValidateResponse.php"));
     }
 }
