@@ -1,0 +1,18 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespace }}\Traits\{{ class }}\{{ class }}Accessor;
+use {{ namespace }}\Traits\{{ class }}\{{ class }}Mutator;
+use {{ namespace }}\Traits\{{ class }}\{{ class }}Relationship;
+use {{ namespace }}\Traits\{{ class }}\{{ class }}Scope;
+use Illuminate\Database\Eloquent\Model;
+
+class {{ class }} extends Model
+{
+    use {{ class }}Accessor;
+    use {{ class }}Mutator;
+    use {{ class }}Relationship;
+    use {{ class }}Scope;
+}
+

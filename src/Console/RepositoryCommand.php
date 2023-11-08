@@ -11,7 +11,7 @@ class RepositoryCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'make:repository {name}';
+    protected $signature = 'make:repository {name} {--model}';
 
     /**
      * The console command description.
@@ -37,7 +37,12 @@ class RepositoryCommand extends GeneratorCommand
      */
     protected function getStub(): string
     {
-        return __DIR__.'/../Stubs/repository.stub';
+        if ($this->option('model')) {
+            return __DIR__.'/../Stubs/repository-model.stub';
+        }
+        else {
+            return __DIR__.'/../Stubs/repository.stub';
+        }
     }
 
     /**
@@ -50,5 +55,22 @@ class RepositoryCommand extends GeneratorCommand
     protected function getDefaultNamespace($rootNamespace): string
     {
         return $rootNamespace . '\Repositories';
+    }
+
+    protected function replaceModel($stub, $name): string
+    {
+        $type = str_replace('Repository', '', $name);
+
+        return str_replace(['{{ model }}', '{{model}}'], $type, $stub);
+    }
+
+    protected function buildClass($name): string
+    {
+        $stub = $this->files->get($this->getStub());
+
+        return $this->replaceNamespace($stub, $name)->replaceClass(
+            $this->option('model') ? $this->replaceModel($stub, $this->getNameInput()) : $stub,
+            $name
+        );
     }
 }

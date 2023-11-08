@@ -1,0 +1,37 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Models\{{ model }};
+
+class {{ class }}
+{
+    public function __construct(
+        protected {{ model }} $model
+    ){}
+
+    public function findById(int $id)
+    {
+        return $this->model->find($id);
+    }
+
+    public function getAll()
+    {
+        return $this->model->get();
+    }
+
+    public function store(array $data)
+    {
+        return $this->model->create($data);
+    }
+
+    public function update({{ model }} $model, array $data)
+    {
+        return tap($model)->update($data);
+    }
+
+    public function delete({{ model }} $model)
+    {
+        return $model->delete();
+    }
+}
