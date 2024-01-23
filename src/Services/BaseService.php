@@ -155,11 +155,9 @@ class BaseService
             ->setCode($exception->getCode());
 
         // Query Exception
-        if ($exception instanceof QueryException) {
-            if ($exception->errorInfo[1] == 1451) {
-                $this->setMessage('Data masih terpakai di Data Lain!')
-                    ->setCode($exception->getCode());
-            }
+        if (($exception instanceof QueryException) && $exception->errorInfo[1] === 1451) {
+            $this->setMessage('Data masih terpakai di Data Lain!')
+                ->setCode($exception->getCode());
         }
 
         // Model Not Found

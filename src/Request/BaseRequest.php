@@ -21,18 +21,17 @@ class BaseRequest extends FormRequest
     public function failedValidation(Validator $validator): void
     {
         if (request()->expectsJson()) {
-            $errors = $validator->errors();
             throw new HttpResponseException(
                 response()->json([
                     'message' => 'Unprocessable Content',
-                    'errors' => $errors
+                    'errors' => $validator->errors()
                 ], Response::HTTP_UNPROCESSABLE_ENTITY)
             );
-        } else {
-            $exception = $validator->getException();
-            throw (new $exception($validator))
-                ->errorBag($this->errorBag)
-                ->redirectTo($this->getRedirectUrl());
         }
+
+        $exception = $validator->getException();
+        throw (new $exception($validator))
+            ->errorBag($this->errorBag)
+            ->redirectTo($this->getRedirectUrl());
     }
 }

@@ -53,8 +53,7 @@ class ModelCommand extends ModelMakeCommand
         if ($this->option('trait')) {
             return __DIR__.'/../Stubs/model-trait.stub';
         }
-        else {
-            return __DIR__.'/../Stubs/model.stub';
-        }
+
+        return __DIR__.'/../Stubs/model.stub';
     }
 }
