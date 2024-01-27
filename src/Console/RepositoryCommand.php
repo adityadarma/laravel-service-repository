@@ -40,9 +40,8 @@ class RepositoryCommand extends GeneratorCommand
         if ($this->option('model')) {
             return __DIR__.'/../Stubs/repository-model.stub';
         }
-        else {
-            return __DIR__.'/../Stubs/repository.stub';
-        }
+
+        return __DIR__.'/../Stubs/repository.stub';
     }
 
     /**

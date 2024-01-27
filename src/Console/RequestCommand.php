@@ -29,8 +29,7 @@ class RequestCommand extends RequestMakeCommand
         if ($this->option('single')) {
             return __DIR__.'/../Stubs/request-single.stub';
         }
-        else {
-            return __DIR__.'/../Stubs/request.stub';
-        }
+
+        return __DIR__.'/../Stubs/request.stub';
     }
 }

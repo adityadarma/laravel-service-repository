@@ -44,7 +44,7 @@ php artisan make:request name --single
 ##### Model
 
 ```php
-php artisan make:model --trait --repository
+php artisan make:model name --trait --repository
 ```
 
 - --trait will file trait to use on model like accessor, mutator, relationship and scope

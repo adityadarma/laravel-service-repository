@@ -22,23 +22,12 @@ class ServiceRepositoryInstallCommand extends Command
     protected $description = 'It will copy base service file and trait file to your project.';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return void
      */
     public function handle(): void
     {
-        // Service
         if (File::exists(app_path("Services/BaseService.php"))) {
             $confirm = $this->confirm("BaseService.php file already exist. Do you want to overwrite?");
             if ($confirm) {
@@ -63,6 +52,7 @@ class ServiceRepositoryInstallCommand extends Command
         if(!File::isDirectory(app_path("Services"))){
             File::makeDirectory(app_path("Services"));
         }
+
         File::copy(__DIR__ . "/../Services/BaseService.php", app_path("Services/BaseService.php"));
     }
 }

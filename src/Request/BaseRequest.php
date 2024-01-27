@@ -20,7 +20,7 @@ class BaseRequest extends FormRequest
      */
     public function failedValidation(Validator $validator): void
     {
-        if (request()->expectsJson()) {
+        if ($this->expectsJson()) {
             throw new HttpResponseException(
                 response()->json([
                     'message' => 'Unprocessable Content',

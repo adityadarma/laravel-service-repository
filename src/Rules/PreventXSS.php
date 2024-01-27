@@ -2,9 +2,11 @@
 
 namespace AdityaDarma\LaravelServiceRepository\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
 
-class PreventXSS implements Rule
+
+use Illuminate\Validation\Rule;
+
+class PreventXSS extends Rule
 {
     /**
      * Create a new rule instance.
@@ -19,11 +21,11 @@ class PreventXSS implements Rule
     /**
      * Determine if the validation rule passes.
      *
-     * @param  string  $attribute
+     * @param string $attribute
      * @param  mixed  $value
      * @return bool
      */
-    public function passes($attribute, $value): bool
+    public function passes(string $attribute, mixed $value): bool
     {
         $fileUpload = file_get_contents($value);
 
