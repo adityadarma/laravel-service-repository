@@ -188,14 +188,16 @@ class BaseService
      */
     public function exceptionResponse(Exception $exception, string $message = 'Terjadi suatu kesalahan!'): static
     {
+        $code = is_int($exception->getCode()) && ($exception->getCode() >= 100 && $exception->getCode() < 600) ? $exception->getCode() : 500;
+
         // Default
         $this->setMessage($message)
-            ->setCode($exception->getCode());
+            ->setCode($code);
 
         // Query Exception
         if (($exception instanceof QueryException) && $exception->errorInfo[1] === 1451) {
             $this->setMessage('Data masih terpakai di Data Lain!')
-                ->setCode($exception->getCode());
+                ->setCode($code);
         }
 
         // Model Not Found
@@ -211,7 +213,7 @@ class BaseService
         // Custom exception
         if ($exception instanceof CustomException) {
             $this->setMessage($exception->getMessage())
-                ->setCode($exception->getCode());
+                ->setCode($code);
         }
 
         // Debuging
@@ -222,7 +224,7 @@ class BaseService
                     'line' => $exception->getLine(),
                     'trace' => $exception->getTrace()
                 ])
-                ->setCode($exception->getCode());
+                ->setCode($code);
         }
 
         return $this;

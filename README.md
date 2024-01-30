@@ -33,6 +33,8 @@ php artisan make:repository name --model
 ```
 - --model will create repository with construct model
 
+You can use general function on trait "GeneralFunctionRepository"
+
 ##### Request
 
 ```php
