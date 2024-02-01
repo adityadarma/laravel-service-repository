@@ -169,9 +169,11 @@ class BaseService
             ];
             $this->data =  $resource::collection($this->data->items());
         }
+        // Data Collection
         elseif($this->data instanceof Collection) {
             $this->data =  $resource::collection($this->data);
         }
+        // Data Model
         elseif ($this->data instanceof Model) {
             $this->data = new $resource($this->data);
         }

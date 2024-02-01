@@ -19,7 +19,7 @@ class LaravelServiceRepositoryServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
+        //
     }
 
     /**
@@ -29,9 +29,10 @@ class LaravelServiceRepositoryServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->commands([ServiceRepositoryInstallCommand::class]);
+
         $this->commands([ServiceCommand::class]);
         $this->commands([RepositoryCommand::class]);
-        $this->commands([ServiceRepositoryInstallCommand::class]);
         $this->commands([ModelCommand::class]);
         $this->commands([ModelTraitCommand::class]);
         $this->commands([RequestCommand::class]);
