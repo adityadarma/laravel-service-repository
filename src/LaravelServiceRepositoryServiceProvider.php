@@ -13,28 +13,30 @@ use Illuminate\Support\ServiceProvider;
 class LaravelServiceRepositoryServiceProvider extends ServiceProvider
 {
     /**
-     * Register services.
-     *
-     * @return void
-     */
-    public function boot(): void
-    {
-        //
-    }
-
-    /**
      * Bootstrap services.
      *
      * @return void
      */
     public function register(): void
     {
-        $this->commands([ServiceRepositoryInstallCommand::class]);
+        //
+    }
 
-        $this->commands([ServiceCommand::class]);
-        $this->commands([RepositoryCommand::class]);
-        $this->commands([ModelCommand::class]);
-        $this->commands([ModelTraitCommand::class]);
-        $this->commands([RequestCommand::class]);
+    /**
+     * Register services.
+     *
+     * @return void
+     */
+    public function boot(): void
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([ServiceRepositoryInstallCommand::class]);
+
+            $this->commands([ServiceCommand::class]);
+            $this->commands([RepositoryCommand::class]);
+            $this->commands([ModelCommand::class]);
+            $this->commands([ModelTraitCommand::class]);
+            $this->commands([RequestCommand::class]);
+        }
     }
 }

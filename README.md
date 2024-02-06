@@ -9,7 +9,7 @@
 
 You can install the package via composer for latest version
 ```bash
-$ composer require adityadarma/laravel-service-repository
+composer require adityadarma/laravel-service-repository
 ```
 
 Install the base service part of core base service:
@@ -17,7 +17,6 @@ Install the base service part of core base service:
 ```bash
 php artisan service-repository:install
 ```
-
 
 ## Usage
 
@@ -117,7 +116,7 @@ php artisan make:request nameRequest --single
 
 - **--single** will make all method to single file request (store, update, delete)
 
-Command request is customed, have failedValidation to consistant API response.
+Command request is customized, have failedValidation to consistent API response.
 I also added an argument, so that we can carry out validation in one FormRequest file. Add function messages to custom response attribute message
 
 ### *Model
@@ -129,8 +128,8 @@ php artisan make:model name --trait --repository
 - **--trait** will file trait to use on model like accessor, mutator, relationship and scope
 - **--repository** will create file repository with construct model
 
-Command model is customed, we add 2 argument type. You can separate it into traits (accessor, mutator, relationship and scope) and add file repository.
+Command model is customized, we add 2 argument type. You can separate it into traits (accessor, mutator, relationship and scope) and add file repository.
 
 ## License
 
-Laravel-logger is licensed under the MIT license. Enjoy!
+This Package is licensed under the MIT license. Enjoy!
