@@ -132,6 +132,17 @@ class BaseService
     }
 
     /**
+     * Convert resource to json response
+     *
+     * @param $resource
+     * @return static
+     */
+    public function toJsonFromResource($resource)
+    {
+        return $this->resource($resource)->toJson();
+    }
+
+    /**
      * Convert to json data with resource
      *
      * @param $resource
@@ -139,43 +150,45 @@ class BaseService
      */
     public function resource($resource): static
     {
-        // Simple Paginate
-        if ($this->data instanceof Paginator) {
-            $this->meta = [
-                'per_page' => $this->data->perPage(),
-                'current_page' => $this->data->currentPage(),
-            ];
-            $this->data =  $resource::collection($this->data->items());
-        }
-        // Paginate
-        elseif ($this->data instanceof LengthAwarePaginator) {
-            $this->meta = [
-                'total' => $this->data->total(),
-                'count' => $this->data->count(),
-                'per_page' => $this->data->perPage(),
-                'current_page' => $this->data->currentPage(),
-                'total_pages' => $this->data->lastPage()
-            ];
-            $this->data =  $resource::collection($this->data->items());
-        }
-        // Cursor Paginate
-        elseif ($this->data instanceof CursorPaginator) {
-            $this->meta = [
-                'per_page' => $this->data->perPage(),
-            ];
-            $this->link = [
-                'prev_page_url' => $this->data->previousPageUrl(),
-                'next_page_url' => $this->data->nextPageUrl(),
-            ];
-            $this->data =  $resource::collection($this->data->items());
-        }
-        // Data Collection
-        elseif($this->data instanceof Collection) {
-            $this->data =  $resource::collection($this->data);
-        }
-        // Data Model
-        elseif ($this->data instanceof Model) {
-            $this->data = new $resource($this->data);
+        if ($this->data) {
+            // Simple Paginate
+            if ($this->data instanceof Paginator) {
+                $this->meta = [
+                    'per_page' => $this->data->perPage(),
+                    'current_page' => $this->data->currentPage(),
+                ];
+                $this->data =  $resource::collection($this->data->items());
+            }
+            // Paginate
+            elseif ($this->data instanceof LengthAwarePaginator) {
+                $this->meta = [
+                    'total' => $this->data->total(),
+                    'count' => $this->data->count(),
+                    'per_page' => $this->data->perPage(),
+                    'current_page' => $this->data->currentPage(),
+                    'total_pages' => $this->data->lastPage()
+                ];
+                $this->data =  $resource::collection($this->data->items());
+            }
+            // Cursor Paginate
+            elseif ($this->data instanceof CursorPaginator) {
+                $this->meta = [
+                    'per_page' => $this->data->perPage(),
+                ];
+                $this->link = [
+                    'prev_page_url' => $this->data->previousPageUrl(),
+                    'next_page_url' => $this->data->nextPageUrl(),
+                ];
+                $this->data =  $resource::collection($this->data->items());
+            }
+            // Data Collection
+            elseif($this->data instanceof Collection) {
+                $this->data =  $resource::collection($this->data);
+            }
+            // Data Model
+            elseif ($this->data instanceof Model) {
+                $this->data = new $resource($this->data);
+            }
         }
 
         return $this;
