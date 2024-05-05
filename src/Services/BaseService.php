@@ -134,10 +134,10 @@ class BaseService
     /**
      * Convert resource to json response
      *
-     * @param $resource
-     * @return static
+     * @param string $resource
+     * @return JsonResponse
      */
-    public function toJsonFromResource($resource)
+    public function toJsonFromResource(string $resource): JsonResponse
     {
         return $this->resource($resource)->toJson();
     }
@@ -145,10 +145,10 @@ class BaseService
     /**
      * Convert to json data with resource
      *
-     * @param $resource
+     * @param string $resource
      * @return static
      */
-    public function resource($resource): static
+    public function resource(string $resource): static
     {
         if ($this->data) {
             // Simple Paginate
