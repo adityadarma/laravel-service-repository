@@ -53,6 +53,8 @@ public function json(Request $request)
 public function withResource(Request $request)
 {
     $this->nameService->functionName()->resource(ClassResource::class)->toJson();
+    // OR
+    $this->nameService->functionName()->toJsonFromResource(ClassResource::class);
 }
 ```
 
