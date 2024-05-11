@@ -1,6 +1,8 @@
 {
     "name": "adityadarma/laravel-service-repository",
     "description": "Create pattern service and repository with easy",
+    "keywords": ["laravel", "service pattern", "repository pattern", "service repository pattern"],
+    "homepage": "https://github.com/adityadarma/laravel-service-repository",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -11,7 +13,7 @@
     ],
     "require": {
         "php": "^8.0",
-        "laravel/framework": "^9.0|^10.0"
+        "laravel/framework": "^9.0|^10.0|^11.0"
     },
     "autoload": {
         "psr-4": {
