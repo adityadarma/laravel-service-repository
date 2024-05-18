@@ -3,6 +3,7 @@
 namespace AdityaDarma\LaravelServiceRepository\Console;
 
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Support\Facades\File;
 
 class ServiceCommand extends GeneratorCommand
 {
@@ -37,7 +38,11 @@ class ServiceCommand extends GeneratorCommand
      */
     protected function getStub(): string
     {
-        return __DIR__.'/../Stubs/service.stub';
+        if (File::exists(app_path("Services/BaseService.php"))) {
+            return __DIR__.'/../Stubs/service-app.stub';
+        } else {
+            return __DIR__.'/../Stubs/service.stub';
+        }
     }
 
     /**

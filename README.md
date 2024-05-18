@@ -52,8 +52,6 @@ public function json(Request $request)
 
 public function withResource(Request $request)
 {
-    $this->nameService->functionName()->resource(ClassResource::class)->toJson();
-    // OR
     $this->nameService->functionName()->toJsonFromResource(ClassResource::class);
 }
 ```
@@ -71,9 +69,16 @@ public function nameMethod()
             throw new CustomException('Error exception');
          }
         ..........
+        // Call toJsonFromResource at controller
         return $this->setData($data)
             ->setMessage('Message data')
-            ->setCode(200)
+            ->setCode(200);
+        // OR
+        // Call toJson at controller
+        return $this->setData($data)
+            ->setResource(ClassResource::class)
+            ->setMessage('Message data')
+            ->setCode(200);
     } catch (Exception $e) {
         return $this->exceptionResponse($e);
     }

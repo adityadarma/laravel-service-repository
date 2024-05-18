@@ -115,40 +115,12 @@ class BaseService
     }
 
     /**
-     * Convert to json data
-     *
-     * @return JsonResponse
-     */
-    public function toJson(): JsonResponse
-    {
-        return response()->json(
-            array_filter([
-                'message' => $this->message,
-                'errors' => $this->error,
-                'meta' => $this->meta,
-                'data' => $this->data,
-                'link' => $this->link,
-            ]), $this->code);
-    }
-
-    /**
-     * Convert resource to json response
-     *
-     * @param string $resource
-     * @return JsonResponse
-     */
-    public function toJsonFromResource(string $resource): JsonResponse
-    {
-        return $this->resource($resource)->toJson();
-    }
-
-    /**
      * Convert to json data with resource
      *
      * @param string $resource
      * @return static
      */
-    public function resource(string $resource): static
+    public function setResource(string $resource): static
     {
         if ($this->data) {
             // Simple Paginate
@@ -192,6 +164,34 @@ class BaseService
         }
 
         return $this;
+    }
+
+    /**
+     * Convert to json data
+     *
+     * @return JsonResponse
+     */
+    public function toJson(): JsonResponse
+    {
+        return response()->json(
+            array_filter([
+                'message' => $this->message,
+                'errors' => $this->error,
+                'meta' => $this->meta,
+                'data' => $this->data,
+                'link' => $this->link,
+            ]), $this->code);
+    }
+
+    /**
+     * Convert resource to json response
+     *
+     * @param string $resource
+     * @return JsonResponse
+     */
+    public function toJsonFromResource(string $resource): JsonResponse
+    {
+        return $this->setResource($resource)->toJson();
     }
 
     /**

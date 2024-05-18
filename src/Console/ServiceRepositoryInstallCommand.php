@@ -53,6 +53,6 @@ class ServiceRepositoryInstallCommand extends Command
             File::makeDirectory(app_path("Services"));
         }
 
-        File::copy(__DIR__ . "/../Services/BaseService.php", app_path("Services/BaseService.php"));
+        File::copy(__DIR__ . "/../Services/AppService.php", app_path("Services/BaseService.php"));
     }
 }
