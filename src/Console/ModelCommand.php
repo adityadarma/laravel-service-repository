@@ -54,6 +54,8 @@ class ModelCommand extends ModelMakeCommand
             return __DIR__.'/../Stubs/model-trait.stub';
         }
 
-        return __DIR__.'/../Stubs/model.stub';
+        return file_exists($customPath = $this->laravel->basePath(trim('/Stubs/model.stub', '/')))
+            ? $customPath
+            : __DIR__.'/../Stubs/model.stub';
     }
 }
