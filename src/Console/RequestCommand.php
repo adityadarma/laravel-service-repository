@@ -27,9 +27,11 @@ class RequestCommand extends RequestMakeCommand
     protected function getStub(): string
     {
         if ($this->option('single')) {
-            return __DIR__.'/../Stubs/request-single.stub';
+            return __DIR__ . '/../Stubs/request-single.stub';
         }
 
-        return __DIR__.'/../Stubs/request.stub';
+        return file_exists($customPath = $this->laravel->basePath(trim('/Stubs/request.stub', '/')))
+            ? $customPath
+            : __DIR__ . '/../Stubs/request.stub';
     }
 }
